@@ -23,3 +23,6 @@ class Idea(Base):
     title: Mapped[str] = Column(Text, nullable=False)
     content: Mapped[str] = Column(Text, nullable=False)
     tags: Mapped[str] = Column(Text, nullable=True)
+
+
+#jhdha;
