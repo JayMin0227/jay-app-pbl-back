@@ -97,6 +97,7 @@ from alembic import context
 from database import engine  # database.py のエンジンを利用
 from models import Base  # models.pyのBaseクラスをインポート
 
+target_metadata = Base.metadata
 # Alembic Config object
 config = context.config
 

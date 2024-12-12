@@ -1,8 +1,8 @@
 """Create projects table
 
-Revision ID: 657281998164
-Revises: 
-Create Date: 2024-12-12 18:00:33.418345
+Revision ID: e4f8b30be9d7
+Revises: 785c4258f09f
+Create Date: 2024-12-12 23:02:57.459203
 
 """
 from typing import Sequence, Union
@@ -12,8 +12,8 @@ import sqlalchemy as sa
 from sqlalchemy.dialects.postgresql import TIMESTAMP
 
 # revision identifiers, used by Alembic.
-revision: str = '657281998164'
-down_revision: Union[str, None] = None
+revision: str = 'e4f8b30be9d7'
+down_revision: Union[str, None] = '785c4258f09f'
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
 
