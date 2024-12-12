@@ -3,9 +3,19 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from models import Idea
 from datetime import datetime
-from fastapi import HTTPException
+# from fastapi import HTTPException
 
 #from database import SessionLocal
+
+
+try:
+    # FastAPI がない環境でも読み込めるようにする
+    from fastapi import HTTPException
+except ImportError:
+    HTTPException = None  # Alembic実行時にはHTTPExceptionは不要
+    
+    
+    
 
 
 # 接続先DBの設定
