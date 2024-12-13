@@ -20,7 +20,7 @@ except ImportError:
 
 # 接続先DBの設定
 DATABASE = 'postgresql+psycopg://user:postgres@localhost:5432/postgres'
-
+# DATABASE='postgresql://postgres:Ryoryo150227@db.vgdaqalcxfvdybyhtyjh.supabase.co:5432/postgres'
 
 # # 接続先DBの設定
 # DATABASE = 'postgresql+psycopg://user:postgres@localhost:5432/ideas'

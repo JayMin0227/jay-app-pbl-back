@@ -96,6 +96,8 @@ from sqlalchemy import pool
 from alembic import context
 from database import engine  # database.py のエンジンを利用
 from models import Base  # models.pyのBaseクラスをインポート
+# from setting import Base
+
 
 target_metadata = Base.metadata
 # Alembic Config object
@@ -106,7 +108,7 @@ if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
 # MetaData設定 (モデル定義をAlembicに認識させる)
-target_metadata = Base.metadata
+#target_metadata = Base.metadata
 
 
 def run_migrations_offline() -> None:
@@ -128,8 +130,10 @@ def run_migrations_online() -> None:
     # database.py で定義した既存のエンジンを使用
     connectable = engine
 
+    url = config.get_main_option("sqlalchemy.url")
     with connectable.connect() as connection:
         context.configure(
+            url=url,
             connection=connection,
             target_metadata=target_metadata,
         )
