@@ -91,8 +91,7 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    # allow_origins=["http://localhost:3000", "https://jay-app-pbl-back.vercel.app"],
-    allow_origins=["*"],
+    allow_origins=["https://jay-app-pbl-front1.vercel.app"], 
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
