@@ -14,16 +14,11 @@ try:
 except ImportError:
     HTTPException = None  # Alembic実行時にはHTTPExceptionは不要
     
-    
-    
-
 
 # 接続先DBの設定
 DATABASE = 'postgresql+psycopg://user:postgres@localhost:5432/postgres'
-# DATABASE='postgresql://postgres:Ryoryo150227@db.vgdaqalcxfvdybyhtyjh.supabase.co:5432/postgres'
+# DATABASE='postgresql+psycopg://postgres:Ryoryo150227@db.vgdaqalcxfvdybyhtyjh.supabase.co:5432/postgres'
 
-# # 接続先DBの設定
-# DATABASE = 'postgresql+psycopg://user:postgres@localhost:5432/ideas'
 
 # SQLAlchemy エンジンの作成
 engine = create_engine(
