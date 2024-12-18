@@ -126,17 +126,24 @@ def read_root():
 
 @app.get("/ideas")
 def get_ideas(db: Session = Depends(get_db)):
-    ideas = db.query(Idea).order_by(Idea.created_at.desc()).all()
-    return [
-        {
-            "id": idea.id,
-            "created_at": idea.created_at.strftime("%Y-%m-%d %H:%M:%S"),
-            "title": idea.title,
-            "content": idea.content,
-            "tags": idea.tags.split(",") if idea.tags else []
-        }
-        for idea in ideas
-    ]
+    try:
+        print("データベース接続確認...")
+        ideas = db.query(Idea).order_by(Idea.created_at.desc()).all()
+        print("データ取得成功:", ideas)
+        return [
+            {
+                "id": idea.id,
+                "created_at": idea.created_at.strftime("%Y-%m-%d %H:%M:%S"),
+                "title": idea.title,
+                "content": idea.content,
+                "tags": idea.tags.split(",") if idea.tags else []
+            }
+            for idea in ideas
+        ]
+    except Exception as e:
+        print("エラー発生:", e)
+        raise HTTPException(status_code=500, detail=str(e))
+
 
 
 
