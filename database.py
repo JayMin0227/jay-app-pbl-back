@@ -1,25 +1,13 @@
-
+import os
+from dotenv import load_dotenv
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from models import Idea
 from datetime import datetime
-# from fastapi import HTTPException
 
-#from database import SessionLocal
+load_dotenv()
 
-
-try:
-    # FastAPI がない環境でも読み込めるようにする
-    from fastapi import HTTPException
-except ImportError:
-    HTTPException = None  # Alembic実行時にはHTTPExceptionは不要
-    
-
-# 接続先DBの設定
-# DATABASE = 'postgresql+psycopg://user:postgres@localhost:5432/postgres'
-# DATABASE='postgresql+psycopg2://postgres:Ryoryo150227@db.vgdaqalcxfvdybyhtyjh.supabase.co:5432/postgres'
-DATABASE='postgresql://postgres.vgdaqalcxfvdybyhtyjh:Ryoryo150227@aws-0-ap-northeast-1.pooler.supabase.com:5432/postgres'
-
+DATABASE = os.environ["DATABASE_URL"]
 
 # SQLAlchemy エンジンの作成
 engine = create_engine(

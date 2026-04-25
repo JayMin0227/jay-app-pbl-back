@@ -295,22 +295,22 @@ def book_page():
 
 
 
-@app.route("/ideas/reset", methods=["DELETE"])
-def reset_ids(db: Session = Depends(get_db)):
-    """
-    全メモのIDをリセットするエンドポイント
-    """
-    ideas = db.query(Idea).order_by(Idea.created_at).all()
+# @app.route("/ideas/reset", methods=["DELETE"])
+# def reset_ids(db: Session = Depends(get_db)):
+#     """
+#     全メモのIDをリセットするエンドポイント
+#     """
+#     ideas = db.query(Idea).order_by(Idea.created_at).all()
 
-    if not ideas:
-        return {"message": "リセットするメモがありません。"}
+#     if not ideas:
+#         return {"message": "リセットするメモがありません。"}
 
-    for index, idea in enumerate(ideas, start=1):
-        idea.id = index  # IDを順番に設定
-    db.commit()
+#     for index, idea in enumerate(ideas, start=1):
+#         idea.id = index  # IDを順番に設定
+#     db.commit()
 
-    # シーケンスをリセット
-    db.execute("ALTER SEQUENCE ideas_id_seq RESTART WITH 1;")
-    db.commit()
+#     # シーケンスをリセット
+#     db.execute("ALTER SEQUENCE ideas_id_seq RESTART WITH 1;")
+#     db.commit()
 
-    return {"message": "IDリセット完了"}
+#     return {"message": "IDリセット完了"}
