@@ -24,7 +24,7 @@ class Idea(Base):
     title: Mapped[str] = Column(Text, nullable=False)
     content: Mapped[str] = Column(Text, nullable=False)
     tags: Mapped[str] = Column(Text, nullable=True)
-
+    user_id: Mapped[str] = Column(Text, nullable=True)
 
 #追加
  # 表示用の文字列表現を定義
