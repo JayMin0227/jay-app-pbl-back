@@ -162,15 +162,13 @@ def read_root():
     return {"message": "Welcome to the FastAPI Ideas API!"}
 
 
-
 @app.get("/ideas")
 def get_ideas(
     db: Session = Depends(get_db),
     user_id: str = Depends(get_current_user_id),
 ):
     try:
-        print("ログインユーザー:", user_id)
-        print("データベース接続確認...")
+        print("認証済みユーザーからのアクセス")
 
         ideas = (
             db.query(Idea)
@@ -178,7 +176,7 @@ def get_ideas(
             .order_by(Idea.created_at.desc())
             .all()
         )
-        print("データ取得成功:", ideas)
+        print(f"データ取得成功: {len(ideas)}件")
 
         return [
             {
@@ -195,7 +193,6 @@ def get_ideas(
     except Exception as e:
         print("エラー発生:", e)
         raise HTTPException(status_code=500, detail=str(e))
-
 
 
 

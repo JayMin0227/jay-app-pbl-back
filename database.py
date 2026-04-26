@@ -9,11 +9,11 @@ load_dotenv()
 
 DATABASE = os.environ["DATABASE_URL"]
 
-# SQLAlchemy エンジンの作成
 engine = create_engine(
     DATABASE,
-    echo=True  # デバッグ用にSQLログを表示
+    echo=False
 )
+
 
 # セッションファクトリの作成
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
