@@ -212,30 +212,30 @@ def create_idea(
     return add_idea(db, idea.title, idea.content, idea.tags, user_id)
 
 
-@app.delete("/ideas/reset")
-def reset_ids(db: Session = Depends(get_db)):
-    """
-    全メモのIDを1から連番で振り直すエンドポイント
-    """
-    ideas = db.query(Idea).order_by(Idea.created_at).all()  # 全てのメモを作成日時順に取得
+# @app.delete("/ideas/reset")
+# def reset_ids(db: Session = Depends(get_db)):
+#     """
+#     全メモのIDを1から連番で振り直すエンドポイント
+#     """
+#     ideas = db.query(Idea).order_by(Idea.created_at).all()  # 全てのメモを作成日時順に取得
 
-    if not ideas:
-        return {"message": "リセットするメモがありません。"}
+#     if not ideas:
+#         return {"message": "リセットするメモがありません。"}
 
-    for index, idea in enumerate(ideas, start=1):  # 1から新しいIDを割り振る
-        idea.id = index
-    db.commit()  # 変更を確定
+#     for index, idea in enumerate(ideas, start=1):  # 1から新しいIDを割り振る
+#         idea.id = index
+#     db.commit()  # 変更を確定
 
-    # PostgreSQL のシーケンスをリセット
-    db.execute("ALTER SEQUENCE ideas_id_seq RESTART WITH 1;")
-    db.commit()
+#     # PostgreSQL のシーケンスをリセット
+#     db.execute("ALTER SEQUENCE ideas_id_seq RESTART WITH 1;")
+#     db.commit()
 
-    return {"message": "IDリセット完了"}
+#     return {"message": "IDリセット完了"}
 
 
-@app.delete("/ideas/id/{idea_id}")
-def delete_idea_by_id_endpoint(idea_id: int, db: Session = Depends(get_db)):
-    return delete_idea_by_id(db, idea_id)
+# @app.delete("/ideas/id/{idea_id}")
+# def delete_idea_by_id_endpoint(idea_id: int, db: Session = Depends(get_db)):
+#     return delete_idea_by_id(db, idea_id)
 
 
 
@@ -262,20 +262,20 @@ def delete_idea(
     return {"message": "Idea deleted successfully"}
 
 
-@app.delete("/ideas/date/{created_at}")
-def delete_idea_by_date(created_at: str, db: Session = Depends(get_db)):
-    try:
-        # created_atをDate型にパース（時間なし）
-        created_at_date = datetime.strptime(created_at, "%Y-%m-%d").date()
-        # created_atを比較してレコードを取得
-        idea = db.query(Idea).filter(Idea.created_at.cast(Date) == created_at_date).first()
-        if not idea:
-            raise HTTPException(status_code=404, detail="Idea not found")
-        db.delete(idea)
-        db.commit()
-        return {"message": "Idea deleted successfully"}
-    except ValueError:
-        raise HTTPException(status_code=400, detail="Invalid date format. Use YYYY-MM-DD")
+# @app.delete("/ideas/date/{created_at}")
+# def delete_idea_by_date(created_at: str, db: Session = Depends(get_db)):
+#     try:
+#         # created_atをDate型にパース（時間なし）
+#         created_at_date = datetime.strptime(created_at, "%Y-%m-%d").date()
+#         # created_atを比較してレコードを取得
+#         idea = db.query(Idea).filter(Idea.created_at.cast(Date) == created_at_date).first()
+#         if not idea:
+#             raise HTTPException(status_code=404, detail="Idea not found")
+#         db.delete(idea)
+#         db.commit()
+#         return {"message": "Idea deleted successfully"}
+#     except ValueError:
+#         raise HTTPException(status_code=400, detail="Invalid date format. Use YYYY-MM-DD")
 
 
 
@@ -355,10 +355,10 @@ def update_idea(
 
 
 
-# メモのフィルタリング
-@app.get("/ideas/filter")
-def filter_idea(date: datetime, db: Session = Depends(get_db)):
-    return filter_ideas(db, date)
+# # メモのフィルタリング
+# @app.get("/ideas/filter")
+# def filter_idea(date: datetime, db: Session = Depends(get_db)):
+#     return filter_ideas(db, date)
 
 
 # **ここが追加**
