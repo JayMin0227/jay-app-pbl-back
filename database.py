@@ -51,11 +51,16 @@ def read_ideas(session):
 
 
 
-def add_idea(db, title, content, tags=None):
-    new_idea = Idea(title=title, content=content, tags=tags)
+def add_idea(db, title, content, tags=None, user_id=None):
+    new_idea = Idea(
+        title=title,
+        content=content,
+        tags=tags,
+        user_id=user_id,
+    )
     db.add(new_idea)
     db.commit()
-    db.refresh(new_idea)  # 追加: 新しいアイデアをリフレッシュ
+    db.refresh(new_idea)
     return new_idea
 
 
@@ -78,14 +83,19 @@ def delete_idea_by_id(db, idea_id):
 
 
 
-def search_ideas(session, keyword):
+def search_ideas(session, keyword, user_id=None):
     keyword_pattern = f"%{keyword}%"
-    return session.query(Idea).filter(
+
+    query = session.query(Idea)
+
+    if user_id is not None:
+        query = query.filter(Idea.user_id == user_id)
+
+    return query.filter(
         (Idea.title.ilike(keyword_pattern)) |
         (Idea.content.ilike(keyword_pattern)) |
-        ((Idea.tags != None) & (Idea.tags.ilike(keyword_pattern)))  # タグを文字列として検索
+        ((Idea.tags != None) & (Idea.tags.ilike(keyword_pattern)))
     ).all()
-
 
 
 def filter_ideas(session, date):
